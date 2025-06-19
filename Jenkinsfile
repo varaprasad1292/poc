@@ -47,6 +47,8 @@ pipeline {
 
         stage('Register Task & Update Service') {
             steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+                                  credentialsId: 'aws-credentials']]) {
                 bat '''
                 aws ecs register-task-definition --cli-input-json file://task-def-final.json
                 aws ecs update-service --cluster %CLUSTER_NAME% --service %SERVICE_NAME% --force-new-deployment
