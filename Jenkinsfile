@@ -6,8 +6,8 @@ pipeline {
         ECR_REPO = 'poc'
         IMAGE_TAG = "v${BUILD_NUMBER}"
         ECR_URL = "614601912331.dkr.ecr.ap-south-1.amazonaws.com/poc/poc"
-        CLUSTER_NAME = 'your-cluster'
-        SERVICE_NAME = 'your-service'
+        CLUSTER_NAME = 'simplewebpoc'
+        SERVICE_NAME = 'simplewebpoc-service'
     }
 
     stages {
