@@ -7,7 +7,7 @@
   "containerDefinitions": [
     {
       "name": "poc",
-      "image": "<ECR_IMAGE_URL>",
+      "image": "614601912331.dkr.ecr.ap-south-1.amazonaws.com/poc/poc:latest",
       "essential": true,
       "portMappings": [
         {
