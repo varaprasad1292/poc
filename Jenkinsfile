@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION = 'ap-south-1'
         ECR_REPO = 'poc'
-        IMAGE_TAG = "v${BUILD_NUMBER}"
+        IMAGE_TAG = "latest"
         ECR_URL = "614601912331.dkr.ecr.ap-south-1.amazonaws.com/poc/poc"
         CLUSTER_NAME = 'simplewebpoc'
         SERVICE_NAME = 'simplewebpoc-service'
@@ -15,7 +15,6 @@ pipeline {
             steps {
                 bat 'echo Building Docker Image...'
                 bat 'docker build -t %ECR_URL%:%IMAGE_TAG% .'
-                bat 'docker build -t %ECR_URL%:latest .'
             }
         }
 
@@ -35,7 +34,6 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 bat 'docker push %ECR_URL%:%IMAGE_TAG%'
-                bat 'docker push -t %ECR_URL%:latest .'
             }
         }
 
