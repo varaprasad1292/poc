@@ -20,9 +20,13 @@ pipeline {
 
         stage('Login to ECR') {
             steps {
-                bat '''
-                for /f %%i in ('aws ecr get-login-password --region %AWS_REGION%') do (
-                    echo %%i | docker login --username AWS --password-stdin %ECR_URL%
+                withCredentials([usernamePassword(
+                    credentialsId: 'aws-credentials',
+                    usernameVariable: 'AWS_ACCESS_KEY_ID',
+                    passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                       bat '''
+                       for /f %%i in ('aws ecr get-login-password --region %AWS_REGION%') do (
+                         echo %%i | docker login --username AWS --password-stdin %ECR_URL%
                 )
                 '''
             }
