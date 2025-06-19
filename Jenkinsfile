@@ -11,11 +11,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/youruser/simple-web.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
