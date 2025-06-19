@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $ECR_URL:$IMAGE_TAG .'
+                bat 'docker build -t $ECR_URL:$IMAGE_TAG .'
             }
         }
 
