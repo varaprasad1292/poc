@@ -23,12 +23,16 @@ pipeline {
                 withCredentials([usernamePassword(
                     credentialsId: 'aws-credentials',
                     usernameVariable: 'AWS_ACCESS_KEY_ID',
-                    passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                       bat '''
-                       for /f %%i in ('aws ecr get-login-password --region %AWS_REGION%') do (
-                         echo %%i | docker login --username AWS --password-stdin %ECR_URL%
-                )
-                '''
+                    passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                )]) {
+                    bat '''
+                    set AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
+                    set AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
+                    for /f %%i in ('aws ecr get-login-password --region %AWS_REGION%') do (
+                        echo %%i | docker login --username AWS --password-stdin %ECR_URL%
+                    )
+                    '''
+                }
             }
         }
 
@@ -55,5 +59,4 @@ pipeline {
             }
         }
     }
-}
 }
