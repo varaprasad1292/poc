@@ -15,6 +15,7 @@ pipeline {
             steps {
                 bat 'echo Building Docker Image...'
                 bat 'docker build -t %ECR_URL%:%IMAGE_TAG% .'
+                bat 'docker build -t %ECR_URL%:latest .'
             }
         }
 
@@ -34,6 +35,7 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 bat 'docker push %ECR_URL%:%IMAGE_TAG%'
+                bat 'docker push -t %ECR_URL%:latest .'
             }
         }
 
