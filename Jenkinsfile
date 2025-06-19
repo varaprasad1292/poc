@@ -20,8 +20,10 @@ pipeline {
 
         stage('Login to ECR') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                                  credentialsId: 'aws-credentials']]) {
+                withCredentials([
+                    [$class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: 'aws-credentials']
+                ]) {
                     bat '''
                     for /f %%i in ('aws ecr get-login-password --region %AWS_REGION%') do (
                         echo %%i | docker login --username AWS --password-stdin %ECR_URL%
@@ -47,12 +49,15 @@ pipeline {
 
         stage('Register Task & Update Service') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                                  credentialsId: 'aws-credentials']]) {
-                bat '''
-                aws ecs register-task-definition --cli-input-json file://task-def-final.json
-                aws ecs update-service --cluster %CLUSTER_NAME% --service %SERVICE_NAME% --force-new-deployment
-                '''
+                withCredentials([
+                    [$class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: 'aws-credentials']
+                ]) {
+                    bat '''
+                    aws ecs register-task-definition --cli-input-json file://task-def-final.json
+                    aws ecs update-service --cluster %CLUSTER_NAME% --service %SERVICE_NAME% --force-new-deployment
+                    '''
+                }
             }
         }
     }
