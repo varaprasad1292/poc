@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'
-        ECR_REPO = 'simple-web'
+        AWS_REGION = 'ap-south-1'
+        ECR_REPO = 'poc'
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        ECR_URL = "<account_id>.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}"
+        ECR_URL = "614601912331.dkr.ecr.ap-south-1.amazonaws.com/poc/poc"
         CLUSTER_NAME = 'your-cluster'
         SERVICE_NAME = 'your-service'
     }
